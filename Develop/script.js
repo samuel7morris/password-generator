@@ -1,13 +1,13 @@
 
 //break into array instead
-var lowerCase = "abcdefghijklmnopqrstuvwxyz"
-var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-var specChar = "!@#$%^&*()_+|>,./;'-=}{<:?"
-var numbers = "1234567890"
+var lowerCase = "abcdefghijklmnopqrstuvwxyz".split("")
+var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
+var specChar = "!@#$%^&*()_+|>,./;'-=}{<:?".split("")
+var numbers = "1234567890".split("")
 
 
 function passwordOptions(){
-  var passwordLength = parseInt(prompt("How many characters for your password")) 
+  var passwordLength = parseInt(prompt("How many characters for your password(Must be between 8 and 128)")) 
 
   if(isNaN(passwordLength) === true) { 
 
@@ -51,50 +51,47 @@ function generatePassword() {
   var result = []
   var possible = []
   var guaranteed = []
+  var password = ""
 
   if(options.specialCharacters){
     possible = possible.concat(specChar)
     guaranteed.push(getRandom(specChar))
+    password+= getRandom(specChar)
   }
 
   if(options.lowerCaseChar){
     possible = possible.concat(lowerCase)
     guaranteed.push(getRandom(lowerCase))
+    password+= getRandom(lowerCase)
   }
 
   if(options.upperCaseChar){
     possible = possible.concat(upperCase)
     guaranteed.push(getRandom(upperCase))
+    password+= getRandom(upperCase)
   }
 
   if(options.numChar){
     possible = possible.concat(numbers)
     guaranteed.push(getRandom(numbers))
+    password+= getRandom(upperCase)
   }
 
-  for(var i = 0; i < options.length; i++){
-    var possibleChar = getRandom(possible)
+
+  let passwordLength = options.passwordLength
+  while(password.length < passwordLength) {
+    password+=guaranteed[Math.floor(Math.random() * guaranteed.length)]
   }
-  //
-
-
-
+  return password;
 }
 
 function getRandom(arr) {
   var randomIndex = Math.floor(Math.random() * arr.length)
   var randomElement = arr[randomIndex]
 
+  
   return randomElement;
 }
-
-
-
-
-
-
-
-
 
 
 
